@@ -1,0 +1,790 @@
+/* --- Variáveis de Cor (Paleta Monocromática) --- */
+:root {
+    --primary-dark: #1a1a1a;  /* Um preto forte, mas não absoluto */
+    --primary-light: #f5f5f5; /* Um branco levemente acinzentado */
+    --secondary-gray: #e0e0e0;/* Cinza médio para bordas e detalhes */
+    --text-dark: #222222;     /* Cor principal do texto sobre fundos claros */
+    --text-light: #ffffff;     /* Cor do texto sobre fundos escuros */
+    --success-color: #28a745;  /* Verde para sucesso */
+    --error-color: #dc3545;    /* Vermelho para erro */
+    --info-color: #17a2b8;     /* Azul para informação/restauração */
+  	--gdoor-orange: #f58220;   /* Laranja Gdoor */
+    --gdoor-orange-hover: #fcc195; /* Laranja Gdoor Hover */
+}
+
+/* --- Resets e Padrões Globais --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Lato', sans-serif;
+    color: var(--text-dark);
+    line-height: 1.7;
+    background-color: #fff;
+}
+
+.container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+h1, h2, h3 {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    color: var(--text-dark);
+}
+
+section {
+    padding: 80px 0;
+    text-align: center;
+}
+
+/* --- Cabealho e Navegação --- */
+.main-header {
+    background: #fff;
+    padding: 15px 0;
+    border-bottom: 1px solid var(--secondary-gray);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+.main-header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.main-nav a {
+    margin: 0 15px;
+    text-decoration: none;
+    color: var(--text-dark);
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+.main-nav a:hover {
+    color: #888;
+}
+.main-nav a.btn-contact {
+    background: var(--primary-dark);
+    color: var(--text-light);
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: 2px solid var(--primary-dark);
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+.main-nav a.btn-contact:hover {
+    background-color: #fff;
+    color: var(--primary-dark);
+}
+
+/* --- Estilo Exclusivo para o Boto Gdoor --- */
+.main-nav a.btn-gdoor {
+    background: var(--gdoor-orange);
+    color: #2d2d2c;
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: 2px solid var(--gdoor-orange);
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+.main-nav a.btn-gdoor:hover {
+    background-color: var(--gdoor-orange);
+    border-color: #2d2d2c;
+    color: #fff; /* Mudana de cor do texto no hover para melhor leitura */
+}
+/* --- Botes --- */
+.btn {
+    display: inline-block;
+    padding: 15px 35px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    font-family: 'Montserrat', sans-serif;
+    text-transform: uppercase;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 2px solid transparent;
+}
+.btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+.btn-primary {
+    background-color: transparent;
+    color: var(--text-light);
+    border-color: var(--text-light);
+}
+.btn-primary:hover {
+    background-color: var(--text-light);
+    color: var(--primary-dark);
+}
+.btn-primary-dark {
+    background-color: var(--primary-dark);
+    color: var(--text-light);
+    border-color: var(--primary-dark);
+    width: 100%;
+    cursor: pointer;
+}
+.btn-primary-dark:hover {
+    background-color: #333;
+    border-color: #333;
+}
+.btn-secondary {
+    background-color: #666;
+    color: var(--text-light);
+    border-color: var(--text-light);
+}
+.btn-secondary:hover {
+    background-color: var(--text-light);
+    color: var(--primary-dark);
+    border-color: #666;
+}
+
+/* --- Seão 1: Banner Principal --- */
+.hero-banner {
+    background-color: var(--primary-dark);
+    color: var(--text-light);
+    padding: 100px 0;
+}
+.hero-banner h1 {
+    font-size: 3.5em;
+    font-weight: 900;
+    color: var(--text-light);
+    margin-bottom: 20px;
+}
+.hero-banner p {
+    font-size: 1.2em;
+    max-width: 600px;
+    margin: 0 auto 40px auto;
+}
+
+/* --- Seção 2: Serviços (Home) --- */
+.services-section { 
+    background: var(--primary-light); 
+}
+.services-section h2 {
+    margin-bottom: 50px;
+}
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+}
+.service-card {
+    background: #fff;
+    padding: 40px 30px;
+    border-radius: 8px;
+    border: 1px solid var(--secondary-gray);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.service-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.08);
+}
+.service-card h3 {
+    margin-bottom: 15px;
+}
+.service-card a {
+    text-decoration: none;
+    color: var(--primary-dark);
+    font-weight: bold;
+    margin-top: 20px;
+    display: inline-block;
+}
+
+/* --- Seção 3: Prova Social --- */
+.testimonials-section {
+    background-color: #fff;
+}
+.testimonials-section h2 {
+    margin-bottom: 50px;
+}
+.testimonial-card {
+    max-width: 750px;
+    margin: 0 auto;
+}
+.testimonial-card blockquote {
+    font-size: 1.4em;
+    font-style: italic;
+    border-left: 4px solid var(--secondary-gray);
+    padding-left: 20px;
+    margin-bottom: 20px;
+}
+.testimonial-card cite {
+    font-weight: bold;
+    font-style: normal;
+}
+
+/* --- Seção 4: Chamada para Ação Final --- */
+.cta-section {
+    background-color: var(--primary-light);
+    color: #000;
+}
+.cta-section h2 { 
+    color: var(--text-light);
+    font-size: 2.5em;
+    margin-bottom: 15px;
+}
+.cta-section p {
+    margin-bottom: 30px;
+    font-size: 1.1em;
+}
+
+/* --- ESTILOS DA PÁGINA DE SERVIÇOS --- */
+.page-header {
+    background-color: var(--primary-light);
+    padding: 60px 0;
+    text-align: center;
+}
+.page-header h1 {
+    font-size: 3em;
+    margin-bottom: 10px;
+}
+.services-page-section {
+    padding: 80px 0;
+    background-color: #fff;
+}
+.services-page-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+    text-align: left;
+}
+.service-page-card {
+    background: #fff;
+    border: 1px solid var(--secondary-gray);
+    border-radius: 8px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.service-page-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+}
+.service-page-card img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    display: block;
+}
+.service-page-card-content {
+    padding: 25px;
+    flex-grow: 1;
+}
+.service-page-card-content h3 {
+    margin-bottom: 15px;
+}
+
+/* --- ESTILOS DA PÁGINA SOBRE --- */
+.about-page-section {
+    background-color: #fff;
+    text-align: left;
+}
+.about-intro {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto 80px auto;
+}
+.about-intro-text h2 {
+    font-size: 2.2em;
+    margin-bottom: 15px;
+}
+.about-intro-text h3 {
+    font-size: 1.2em;
+    font-style: italic;
+    color: #555;
+    margin-top: 20px;
+    font-weight: 400;
+}
+.about-quote {
+    max-width: 800px;
+    margin: 0 auto 60px auto;
+}
+.about-quote h4 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.5em;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--secondary-gray);
+}
+.about-quote blockquote {
+    font-size: 1.1em;
+    line-height: 1.8;
+    color: #333;
+    padding: 25px;
+    background-color: var(--primary-light);
+    border-left: 5px solid var(--primary-dark);
+    border-radius: 0 8px 8px 0;
+    margin: 0;
+}
+.personalized-support-section {
+    background-color: var(--primary-light);
+    color: #000;
+}
+.personalized-support-section h2 {
+    color: var(--text-light);
+    margin-bottom: 20px;
+}
+.personalized-support-section p {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+/* --- ESTILOS DA PÁGINA DE PARCEIROS --- */
+.partners-page-section {
+    background-color: #fff;
+    text-align: left;
+}
+.partners-intro {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto 60px auto;
+    font-size: 1.1em;
+    line-height: 1.8;
+}
+.partners-list {
+    max-width: 900px;
+    margin: 0 auto;
+}
+.partner-item {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    padding: 30px 0;
+    border-bottom: 1px solid var(--secondary-gray);
+}
+.partner-item:last-child {
+    border-bottom: none;
+}
+.partner-logo img {
+    width: 150px;
+    height: 150px;
+    object-fit: contain; /* 'contain' é melhor para logos */
+    border-radius: 8px;
+    background-color: var(--primary-light);
+}
+.partner-details h3 {
+    margin-bottom: 10px;
+}
+
+/* --- ESTILOS DA PGINA DE CLIENTES --- */
+.clients-page-section {
+    background-color: #fff;
+    text-align: left;
+}
+.clients-intro {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto 60px auto;
+    font-size: 1.1em;
+    line-height: 1.8;
+}
+.clients-list {
+    max-width: 900px;
+    margin: 0 auto;
+}
+.client-item {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    padding: 30px 0;
+    border-bottom: 1px solid var(--secondary-gray);
+}
+.client-item:last-child {
+    border-bottom: none;
+}
+.client-logo img {
+    width: 150px;
+    height: 150px;
+    object-fit: contain;
+    border-radius: 8px;
+    background-color: var(--primary-light);
+}
+.client-details h3 {
+    margin-bottom: 10px;
+}
+
+/* --- ESTILOS DA PÁGINA DE DETALHE DE SERVIÇO --- */
+.service-detail-page-section {
+    background-color: #fff;
+    padding-bottom: 80px;
+}
+.service-detail-image {
+    margin-bottom: 50px;
+}
+.service-detail-image img {
+    width: 100%;
+    max-width: 800px;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+.service-detail-content {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: left;
+}
+.service-detail-content h2 {
+    font-size: 2.2em;
+    margin-bottom: 25px;
+}
+.service-detail-content h3 {
+    font-size: 1.6em;
+    margin-top: 40px;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--secondary-gray);
+}
+.service-detail-content p {
+    margin-bottom: 20px;
+}
+.service-detail-content ul {
+    list-style-position: inside;
+    padding-left: 10px;
+    margin-bottom: 20px;
+}
+.service-detail-content ul li {
+    margin-bottom: 15px;
+}
+/* --- ESTILOS DA PÁGINA DE DETALHE DE SERVIÇO --- */
+.service-detail-page-section {
+    background-color: #fff;
+    padding-bottom: 80px;
+}
+.service-detail-image {
+    margin-bottom: 50px;
+}
+.service-detail-image img {
+    width: 100%;
+    max-width: 800px;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+.service-detail-content {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: left;
+}
+.service-detail-content h2 {
+    font-size: 2.2em;
+    margin-bottom: 25px;
+}
+.service-detail-content h3 {
+    font-size: 1.6em;
+    margin-top: 40px;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--secondary-gray);
+}
+.service-detail-content p {
+    margin-bottom: 20px;
+}
+.service-detail-content ul {
+    list-style-position: inside;
+    padding-left: 10px;
+    margin-bottom: 20px;
+}
+.service-detail-content ul li {
+    margin-bottom: 15px;
+}
+/* --- ESTILOS DA PÁGINA DE CONTATO --- */
+.map-section {
+    padding: 0 20px 80px 20px; /* Adiciona espaçamento */
+}
+#map {
+    max-width: 1100px; /* Define a largura máxima */
+    width: 100%; /* Garante responsividade */
+    height: 450px;
+    margin: 0 auto; /* Centra o mapa */
+    border-radius: 8px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+/* --- ESTILOS DA PGINA DE CONTATO --- */
+.contact-page-section {
+    background-color: #fff;
+    padding-top: 40px; /* Reduz o padding superior para acomodar a mensagem */
+}
+.contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    gap: 60px;
+    text-align: left;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+.contact-info h3, .contact-form h3 {
+    font-size: 1.8em;
+    margin-bottom: 20px;
+}
+.contact-info-item {
+    margin-bottom: 25px;
+}
+.contact-info-item strong {
+    display: block;
+    margin-bottom: 5px;
+    font-family: 'Montserrat', sans-serif;
+}
+.contact-info-item a {
+    text-decoration: none;
+    color: var(--text-dark);
+}
+.contact-info-item a:hover {
+    text-decoration: underline;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid var(--secondary-gray);
+    border-radius: 5px;
+    font-family: 'Lato', sans-serif;
+    font-size: 1em;
+}
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--primary-dark);
+    box-shadow: 0 0 5px rgba(0,0,0,0.1);
+}
+
+/* --- ESTILOS DAS MENSAGENS DE ALERTA --- */
+.alert {
+    padding: 15px;
+    margin-bottom: 30px;
+    border-radius: 5px;
+    text-align: center;
+    font-weight: bold;
+}
+.alert-success {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+.alert-error {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+/* --- ESTILOS DA ÁREA RESTRITA --- */
+.login-section {
+    padding: 100px 0;
+}
+.login-box {
+    max-width: 360px;
+    margin: 0 auto;
+    padding: 40px;
+    background: var(--primary-light);
+    border: 1px solid var(--secondary-gray);
+    border-radius: 8px;
+}
+.login-box h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+.contacts-list-section {
+    padding: 60px 0;
+    text-align: left;
+}
+.page-header .admin-buttons {
+    margin-top: 20px;
+}
+.btn-outline {
+    display: inline-block;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    border: 2px solid;
+    background-color: transparent;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+.btn-outline.logout-button {
+    border-color: var(--error-color);
+    color: var(--error-color);
+}
+.btn-outline.logout-button:hover {
+    background-color: var(--error-color);
+    color: #fff;
+}
+.contact-accordion {
+    max-width: 900px;
+    margin: 0 auto;
+}
+.accordion-item {
+    border: 1px solid var(--secondary-gray);
+    border-radius: 5px;
+    margin-bottom: 10px;
+    overflow: hidden;
+}
+.accordion-header {
+    background-color: var(--primary-light);
+    border: none;
+    width: 100%;
+    padding: 15px;
+    text-align: left;
+    font-size: 1em;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: 'Montserrat', sans-serif;
+}
+.accordion-header:hover {
+    background-color: var(--secondary-gray);
+}
+.accordion-header .header-name {
+    font-weight: bold;
+}
+.accordion-header .header-subject {
+    color: #555;
+}
+.accordion-header .header-date {
+    font-size: 0.9em;
+    color: #777;
+}
+.accordion-content {
+    padding: 20px;
+    display: none; /* Escondido por padrão */
+}
+.accordion-content .message-body {
+    background-color: #fff;
+    border: 1px solid var(--secondary-gray);
+    padding: 15px;
+    border-radius: 5px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    white-space: pre-wrap; /* Preserva quebras de linha e espaços */
+}
+.btn-delete {
+    background-color: var(--error-color);
+    color: var(--text-light);
+    padding: 8px 15px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 0.9em;
+    display: inline-block;
+    transition: background-color 0.3s ease;
+}
+.btn-delete:hover {
+    background-color: #c82333;
+}
+/* --- ESTILOS DA PÁGINA DE PROJETOS --- */
+.projects-page-section {
+    background-color: #fff;
+}
+.project-item {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 30px;
+    max-width: 900px;
+    margin: 0 auto 80px auto;
+    text-align: left;
+    padding-bottom: 60px;
+    border-bottom: 1px solid var(--secondary-gray);
+}
+.project-item:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+.project-image img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    border: 1px solid var(--secondary-gray);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+}
+.project-image a:hover img {
+    transform: scale(1.02);
+}
+.project-description h3 {
+    font-size: 2em;
+    margin-bottom: 15px;
+}
+.btn-visit-project {
+    display: inline-block;
+    margin-top: 20px;
+    background-color: var(--primary-dark);
+    color: var(--text-light);
+    padding: 12px 25px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+.btn-visit-project:hover {
+    background-color: #333;
+}
+/* --- Rodapé --- */
+.main-footer {
+    background: var(--primary-dark);
+    color: #ccc;
+    padding-top: 60px;
+    font-size: 0.9em;
+}
+.footer-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 40px;
+    text-align: left;
+}
+.footer-col h4 { 
+    color: var(--text-light);
+    font-family: 'Montserrat', sans-serif;
+    margin-bottom: 15px;
+}
+.footer-col p { margin-bottom: 10px; }
+.footer-col ul { list-style: none; }
+.footer-col ul li { margin-bottom: 10px; }
+.footer-col a { 
+    color: #ccc; 
+    text-decoration: none; 
+    transition: color 0.3s ease;
+}
+.footer-col a:hover { color: var(--text-light); }
+.footer-bottom {
+    text-align: center;
+    padding: 20px 0;
+    margin-top: 40px;
+    border-top: 1px solid #333;
+}
+
+/* --- Responsividade --- */
+@media (max-width: 992px) {
+    .services-page-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .contact-grid {
+        grid-template-columns: 1fr;
+    }
+}
+@media (max-width: 768px) {
+    .hero-banner h1 { font-size: 2.5em; }
+    .services-grid, .services-page-grid { 
+        grid-template-columns: 1fr; 
+    }
+    .footer-grid { text-align: center; }
+    .main-header .container { flex-direction: column; }
+    .main-nav { margin-top: 15px; }
+    .main-nav a { margin: 0 10px; }
+    .partner-item, .client-item {
+        flex-direction: column;
+        text-align: center;
+    }
+}
