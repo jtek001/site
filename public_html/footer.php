@@ -76,8 +76,7 @@
     </script>
     
 
-
-    <!-- ===== CHAT WIDGET ===== -->
+<!-- ===== CHAT WIDGET ===== -->
     <div id="chat-widget-container">
         <div id="chat-icon">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
@@ -121,6 +120,16 @@
             let chatSessionId = localStorage.getItem('chat_session_id');
             let messagePolling;
             let chatStatus = 'Aguardando';
+
+            // Função para formatar a data e hora
+            function formatTimestamp(timestamp) {
+                const date = new Date(timestamp);
+                const day = String(date.getDate()).padStart(2, '0');
+                const month = String(date.getMonth() + 1).padStart(2, '0');
+                const hours = String(date.getHours()).padStart(2, '0');
+                const minutes = String(date.getMinutes()).padStart(2, '0');
+                return `${day}/${month} ${hours}:${minutes}`;
+            }
 
             chatIcon.addEventListener('click', () => {
                 chatWindow.classList.remove('hidden');
@@ -173,10 +182,10 @@
                     chatStatus = data.status;
                     const messages = data.messages;
 
-                    const shouldScroll = messagesContainer.scrollTop + messagesContainer.clientHeight === messagesContainer.scrollHeight;
+                    const shouldScroll = messagesContainer.scrollTop + messagesContainer.clientHeight >= messagesContainer.scrollHeight - 20;
 
                     messagesContainer.innerHTML = '';
-                    messages.forEach(msg => appendMessage(msg.sender, msg.message));
+                    messages.forEach(msg => appendMessage(msg.sender, msg.message, msg.timestamp));
 
                     if (chatStatus === 'Finalizado') {
                         const finalizadoDiv = document.createElement('div');
@@ -203,8 +212,7 @@
             async function sendMessage() {
                 const message = chatInput.value.trim();
                 if (message === '' || !chatSessionId) return;
-
-                appendMessage('user', message);
+                
                 chatInput.value = '';
 
                 try {
@@ -213,15 +221,26 @@
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({ session_id: chatSessionId, message: message, sender: 'user' })
                     });
+                    loadMessages(); // Carrega as mensagens imediatamente para ver a sua e a hora
                 } catch (error) {
                     console.error('Erro ao enviar mensagem:', error);
                 }
             }
 
-            function appendMessage(sender, message) {
+            function appendMessage(sender, message, timestamp) {
                 const messageDiv = document.createElement('div');
                 messageDiv.classList.add('chat-message', `${sender}-message`);
-                messageDiv.textContent = message;
+                
+                const messageText = document.createElement('span');
+                messageText.className = 'message-text';
+                messageText.textContent = message;
+                
+                const timeText = document.createElement('span');
+                timeText.className = 'chat-timestamp';
+                timeText.textContent = formatTimestamp(timestamp);
+
+                messageDiv.appendChild(messageText);
+                messageDiv.appendChild(timeText);
                 messagesContainer.appendChild(messageDiv);
             }
 
