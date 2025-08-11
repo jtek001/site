@@ -8,7 +8,7 @@
     --success-color: #28a745;  /* Verde para sucesso */
     --error-color: #dc3545;    /* Vermelho para erro */
     --info-color: #17a2b8;     /* Azul para informação/restauração */
-  	--gdoor-orange: #f58220;   /* Laranja Gdoor */
+    --gdoor-orange: #f58220;   /* Laranja Gdoor */
     --gdoor-orange-hover: #fcc195; /* Laranja Gdoor Hover */
 }
 
@@ -43,7 +43,7 @@ section {
     text-align: center;
 }
 
-/* --- Cabealho e Navegação --- */
+/* --- Cabeçalho e Navegação --- */
 .main-header {
     background: #fff;
     padding: 15px 0;
@@ -58,7 +58,7 @@ section {
     align-items: center;
 }
 .main-nav a {
-    margin: 0 15px;
+    margin: 0 10px;
     text-decoration: none;
     color: var(--text-dark);
     font-weight: bold;
@@ -80,21 +80,23 @@ section {
     color: var(--primary-dark);
 }
 
-/* --- Estilo Exclusivo para o Boto Gdoor --- */
+/* --- Estilo Exclusivo para o Botão Gdoor --- */
 .main-nav a.btn-gdoor {
     background: var(--gdoor-orange);
-    color: #2d2d2c;
+    color: var(--text-light);
     padding: 10px 20px;
     border-radius: 5px;
     border: 2px solid var(--gdoor-orange);
     transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 .main-nav a.btn-gdoor:hover {
-    background-color: var(--gdoor-orange);
-    border-color: #2d2d2c;
-    color: #fff; /* Mudana de cor do texto no hover para melhor leitura */
+    background-color: var(--gdoor-orange-hover);
+    border-color: var(--gdoor-orange-hover);
+    color: var(--text-dark); /* Mudança de cor do texto no hover para melhor leitura */
 }
-/* --- Botes --- */
+
+
+/* --- Botões --- */
 .btn {
     display: inline-block;
     padding: 15px 35px;
@@ -131,17 +133,16 @@ section {
     border-color: #333;
 }
 .btn-secondary {
-    background-color: #666;
+    background-color: transparent;
     color: var(--text-light);
     border-color: var(--text-light);
 }
 .btn-secondary:hover {
     background-color: var(--text-light);
     color: var(--primary-dark);
-    border-color: #666;
 }
 
-/* --- Seão 1: Banner Principal --- */
+/* --- Seção 1: Banner Principal --- */
 .hero-banner {
     background-color: var(--primary-dark);
     color: var(--text-light);
@@ -218,8 +219,8 @@ section {
 
 /* --- Seção 4: Chamada para Ação Final --- */
 .cta-section {
-    background-color: var(--primary-light);
-    color: #000;
+    background: var(--primary-dark);
+    color: var(--text-light);
 }
 .cta-section h2 { 
     color: var(--text-light);
@@ -321,8 +322,8 @@ section {
     margin: 0;
 }
 .personalized-support-section {
-    background-color: var(--primary-light);
-    color: #000;
+    background-color: var(--primary-dark);
+    color: var(--text-light);
 }
 .personalized-support-section h2 {
     color: var(--text-light);
@@ -370,7 +371,7 @@ section {
     margin-bottom: 10px;
 }
 
-/* --- ESTILOS DA PGINA DE CLIENTES --- */
+/* --- ESTILOS DA PÁGINA DE CLIENTES --- */
 .clients-page-section {
     background-color: #fff;
     text-align: left;
@@ -449,48 +450,7 @@ section {
 .service-detail-content ul li {
     margin-bottom: 15px;
 }
-/* --- ESTILOS DA PÁGINA DE DETALHE DE SERVIÇO --- */
-.service-detail-page-section {
-    background-color: #fff;
-    padding-bottom: 80px;
-}
-.service-detail-image {
-    margin-bottom: 50px;
-}
-.service-detail-image img {
-    width: 100%;
-    max-width: 800px;
-    height: auto;
-    border-radius: 8px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-}
-.service-detail-content {
-    max-width: 800px;
-    margin: 0 auto;
-    text-align: left;
-}
-.service-detail-content h2 {
-    font-size: 2.2em;
-    margin-bottom: 25px;
-}
-.service-detail-content h3 {
-    font-size: 1.6em;
-    margin-top: 40px;
-    margin-bottom: 20px;
-    padding-bottom: 10px;
-    border-bottom: 2px solid var(--secondary-gray);
-}
-.service-detail-content p {
-    margin-bottom: 20px;
-}
-.service-detail-content ul {
-    list-style-position: inside;
-    padding-left: 10px;
-    margin-bottom: 20px;
-}
-.service-detail-content ul li {
-    margin-bottom: 15px;
-}
+
 /* --- ESTILOS DA PÁGINA DE CONTATO --- */
 .map-section {
     padding: 0 20px 80px 20px; /* Adiciona espaçamento */
@@ -503,11 +463,9 @@ section {
     border-radius: 8px;
     box-shadow: 0 10px 30px rgba(0,0,0,0.1);
 }
-
-/* --- ESTILOS DA PGINA DE CONTATO --- */
 .contact-page-section {
     background-color: #fff;
-    padding-top: 40px; /* Reduz o padding superior para acomodar a mensagem */
+    padding-top: 0; /* Remove o padding que agora está na seção do mapa */
 }
 .contact-grid {
     display: grid;
@@ -613,6 +571,17 @@ section {
     background-color: transparent;
     transition: background-color 0.3s ease, color 0.3s ease;
 }
+.btn-outline.btn-lixeira,
+.page-header a.btn-lixeira {
+    border-color: #6c757d;
+    color: #6c757d;
+    margin-right: 15px;
+}
+.btn-outline.btn-lixeira:hover,
+.page-header a.btn-lixeira:hover {
+    background-color: #6c757d;
+    color: #fff;
+}
 .btn-outline.logout-button {
     border-color: var(--error-color);
     color: var(--error-color);
@@ -683,6 +652,7 @@ section {
 .btn-delete:hover {
     background-color: #c82333;
 }
+
 /* --- ESTILOS DA PÁGINA DE PROJETOS --- */
 .projects-page-section {
     background-color: #fff;
@@ -731,6 +701,132 @@ section {
 .btn-visit-project:hover {
     background-color: #333;
 }
+
+/* --- ESTILOS DO WIDGET DE CHAT --- */
+#chat-widget-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1001;
+}
+#chat-icon {
+    width: 60px;
+    height: 60px;
+    background-color: var(--primary-dark);
+    color: var(--text-light);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    transition: transform 0.3s ease;
+}
+#chat-icon:hover {
+    transform: scale(1.1);
+}
+#chat-window {
+    width: 350px;
+    height: 450px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+#chat-window.hidden, #chat-icon.hidden, #chat-input-area.hidden, #chat-finished-area.hidden {
+    display: none;
+}
+#chat-header {
+    background-color: var(--primary-dark);
+    color: var(--text-light);
+    padding: 15px;
+    font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+#close-chat {
+    background: none;
+    border: none;
+    color: var(--text-light);
+    font-size: 1.5em;
+    cursor: pointer;
+}
+#chat-messages {
+    flex-grow: 1;
+    padding: 15px;
+    overflow-y: auto;
+    background-color: var(--primary-light);
+}
+.chat-message {
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    max-width: 80%;
+    word-wrap: break-word;
+}
+.user-message {
+    background-color: var(--gdoor-orange);
+    color: var(--text-light);
+    align-self: flex-end;
+    margin-left: auto;
+}
+.admin-message {
+    background-color: #fff;
+    color: var(--text-dark);
+    align-self: flex-start;
+    border: 1px solid var(--secondary-gray);
+}
+.system-message {
+    background-color: transparent;
+    color: #888;
+    font-style: italic;
+    text-align: center;
+    font-size: 0.9em;
+    max-width: 100%;
+}
+#chat-input-area {
+    display: flex;
+    border-top: 1px solid var(--secondary-gray);
+}
+#chat-input {
+    flex-grow: 1;
+    border: none;
+    padding: 15px;
+    outline: none;
+}
+#send-chat-message {
+    background-color: var(--primary-dark);
+    color: var(--text-light);
+    border: none;
+    padding: 0 20px;
+    cursor: pointer;
+    font-weight: bold;
+}
+#send-chat-message:hover {
+    background-color: #333;
+}
+#chat-finished-area {
+    padding: 15px;
+    text-align: center;
+    border-top: 1px solid var(--secondary-gray);
+}
+#start-new-chat {
+    background-color: var(--success-color);
+    color: #fff;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    width: 100%;
+}
+#start-new-chat:hover {
+    background-color: #218838;
+}
+
 /* --- Rodapé --- */
 .main-footer {
     background: var(--primary-dark);
@@ -786,5 +882,19 @@ section {
     .partner-item, .client-item {
         flex-direction: column;
         text-align: center;
+    }
+    .accordion-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .accordion-header .header-subject, .accordion-header .header-date {
+        margin-top: 5px;
+    }
+    .project-item {
+        grid-template-columns: 1fr;
+    }
+    /* Esconde o widget de chat em dispositivos móveis */
+    #chat-widget-container {
+        display: none;
     }
 }
