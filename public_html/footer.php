@@ -29,7 +29,7 @@
                     <li><a href="/servicos/redes">Redes e Infraestrutura</a></li>
                     <li><a href="/servicos/seguranca">Segurança Digital</a></li>
                     <li><a href="/servicos/suporte">Suporte Técnico</a></li>
-                    <li><a href="/servicos/manutencao">Manutenão</a></li>
+                    <li><a href="/servicos/manutencao">Manutenção</a></li>
                     <li><a href="/servicos/backup">Backups</a></li>
                     <li><a href="/servicos/treinamento">Treinamento</a></li>
                 </ul>
@@ -74,5 +74,168 @@
             });
         });
     </script>
+    
+
+
+    <!-- ===== CHAT WIDGET ===== -->
+    <div id="chat-widget-container">
+        <div id="chat-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+        </div>
+        <div id="chat-window" class="hidden">
+            <div id="chat-header">
+                <span>Fale Conosco</span>
+                <button id="close-chat">-</button>
+            </div>
+            <div id="chat-messages">
+                <!-- As mensagens serão inseridas aqui -->
+            </div>
+            <div id="chat-input-area">
+                <input type="text" id="chat-input" placeholder="Digite sua mensagem...">
+                <button id="send-chat-message">Enviar</button>
+            </div>
+            <!-- Nova área para quando o chat for finalizado -->
+            <div id="chat-finished-area" class="hidden">
+                <button id="start-new-chat">Iniciar Novo Atendimento</button>
+            </div>
+        </div>
+    </div>
+    <!-- ===== FIM DO CHAT WIDGET ===== -->
+
+	<!-- JavaScript para o Acordeão e Chat -->
+    <script>
+        // ... (o seu script do acordeão existente) ...
+
+        // ===== LÓGICA DO CHAT =====
+        document.addEventListener('DOMContentLoaded', function () {
+            const chatIcon = document.getElementById('chat-icon');
+            const chatWindow = document.getElementById('chat-window');
+            const closeChat = document.getElementById('close-chat');
+            const messagesContainer = document.getElementById('chat-messages');
+            const chatInputArea = document.getElementById('chat-input-area');
+            const chatInput = document.getElementById('chat-input');
+            const sendMessageBtn = document.getElementById('send-chat-message');
+            const chatFinishedArea = document.getElementById('chat-finished-area');
+            const startNewChatBtn = document.getElementById('start-new-chat');
+            
+            let chatSessionId = localStorage.getItem('chat_session_id');
+            let messagePolling;
+            let chatStatus = 'Aguardando';
+
+            chatIcon.addEventListener('click', () => {
+                chatWindow.classList.remove('hidden');
+                chatIcon.classList.add('hidden');
+                startChat();
+            });
+
+            closeChat.addEventListener('click', () => {
+                chatWindow.classList.add('hidden');
+                chatIcon.classList.remove('hidden');
+                stopPolling();
+            });
+
+            sendMessageBtn.addEventListener('click', sendMessage);
+            chatInput.addEventListener('keypress', (e) => e.key === 'Enter' && sendMessage());
+
+            startNewChatBtn.addEventListener('click', () => {
+                localStorage.removeItem('chat_session_id');
+                chatSessionId = null;
+                messagesContainer.innerHTML = '';
+                startChat();
+            });
+
+            async function startChat() {
+                if (!chatSessionId) {
+                    try {
+                        const response = await fetch('/chat_api.php?action=start_session');
+                        const data = await response.json();
+                        if (data.status === 'success') {
+                            chatSessionId = data.session_id;
+                            localStorage.setItem('chat_session_id', chatSessionId);
+                        }
+                    } catch (error) {
+                        console.error('Erro ao iniciar sessão:', error);
+                        return;
+                    }
+                }
+                loadMessages();
+                startPolling();
+            }
+
+            async function loadMessages() {
+                if (!chatSessionId) return;
+                try {
+                    const response = await fetch(`/chat_api.php?action=get_messages&session_id=${chatSessionId}`);
+                    const data = await response.json();
+
+                    if(data.status === 'error') return;
+
+                    chatStatus = data.status;
+                    const messages = data.messages;
+
+                    const shouldScroll = messagesContainer.scrollTop + messagesContainer.clientHeight === messagesContainer.scrollHeight;
+
+                    messagesContainer.innerHTML = '';
+                    messages.forEach(msg => appendMessage(msg.sender, msg.message));
+
+                    if (chatStatus === 'Finalizado') {
+                        const finalizadoDiv = document.createElement('div');
+                        finalizadoDiv.className = 'chat-message system-message';
+                        finalizadoDiv.textContent = 'Atendimento finalizado pelo operador.';
+                        messagesContainer.appendChild(finalizadoDiv);
+                        
+                        chatInputArea.classList.add('hidden');
+                        chatFinishedArea.classList.remove('hidden');
+                        stopPolling();
+                    } else {
+                        chatInputArea.classList.remove('hidden');
+                        chatFinishedArea.classList.add('hidden');
+                    }
+
+                    if (shouldScroll) {
+                        messagesContainer.scrollTop = messagesContainer.scrollHeight;
+                    }
+                } catch (error) {
+                    console.error('Erro ao carregar mensagens:', error);
+                }
+            }
+
+            async function sendMessage() {
+                const message = chatInput.value.trim();
+                if (message === '' || !chatSessionId) return;
+
+                appendMessage('user', message);
+                chatInput.value = '';
+
+                try {
+                    await fetch('/chat_api.php?action=send_message', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ session_id: chatSessionId, message: message, sender: 'user' })
+                    });
+                } catch (error) {
+                    console.error('Erro ao enviar mensagem:', error);
+                }
+            }
+
+            function appendMessage(sender, message) {
+                const messageDiv = document.createElement('div');
+                messageDiv.classList.add('chat-message', `${sender}-message`);
+                messageDiv.textContent = message;
+                messagesContainer.appendChild(messageDiv);
+            }
+
+            function startPolling() {
+                stopPolling();
+                messagePolling = setInterval(loadMessages, 3000);
+            }
+
+            function stopPolling() {
+                clearInterval(messagePolling);
+            }
+        });
+    </script>
+
+    
 </body>
 </html>
