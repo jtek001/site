@@ -57,6 +57,7 @@ include '../header.php';
             <h1>Contatos Recebidos</h1>
             <p>Mensagens enviadas pelo formulário do site.</p>
             <div class="admin-buttons">
+                <a href="chat.php" class="btn-outline btn-lixeira">Ver Chat</a>
                  <a href="?action=logout" class="btn-outline logout-button">Sair</a>
             </div>
         </div>
@@ -97,6 +98,6 @@ include '../header.php';
 // O rodapé é incluído no final
 include '../footer.php'; 
 
-// A conexão com o banco de dados é fechada aqui, no final de tudo
+// A conexão com o banco de dados  fechada aqui, no final de tudo
 $mysqli->close();
 ?>
