@@ -1,26 +1,9 @@
 <?php
 session_start();
-require_once '../db_config.php';
-date_default_timezone_set('America/Sao_Paulo');
-
-// --- LÓGICA PARA FINALIZAR SESSÕES INATIVAS ---
-$sql_cleanup = "UPDATE chat_sessions SET status = 'Finalizado' WHERE updated_at < NOW() - INTERVAL 10 MINUTE AND status != 'Finalizado'";
-$mysqli->query($sql_cleanup);
-// --- FIM DA LÓGICA DE LIMPEZA ---
-
 if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
     header('Location: index.php');
     exit;
 }
-
-// Lógica de Logout
-if (isset($_GET['action']) && $_GET['action'] == 'logout') {
-    session_unset();
-    session_destroy();
-    header('Location: index.php');
-    exit;
-}
-
 include '../header.php';
 ?>
 
@@ -89,6 +72,16 @@ document.addEventListener('DOMContentLoaded', function() {
     let currentSessionId = null;
     let pollingInterval;
 
+    // Função para formatar a data e hora
+    function formatTimestamp(timestamp) {
+        const date = new Date(timestamp);
+        const day = String(date.getDate()).padStart(2, '0');
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const hours = String(date.getHours()).padStart(2, '0');
+        const minutes = String(date.getMinutes()).padStart(2, '0');
+        return `${day}/${month} ${hours}:${minutes}`;
+    }
+
     async function loadSessions() {
         try {
             const response = await fetch('/chat_api.php?action=get_sessions');
@@ -115,7 +108,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     async function openChat(sessionId) {
         currentSessionId = sessionId;
-        loadSessions(); // Recarrega para marcar como ativo
+        loadSessions();
         messagesContainer.innerHTML = 'Carregando mensagens...';
         chatInputArea.style.display = 'flex';
         chatActions.style.display = 'block';
@@ -135,12 +128,22 @@ document.addEventListener('DOMContentLoaded', function() {
                 messages.forEach(msg => {
                     const messageDiv = document.createElement('div');
                     messageDiv.className = `chat-message ${msg.sender}-message`;
-                    messageDiv.textContent = msg.message;
+                    
+                    const messageText = document.createElement('span');
+                    messageText.className = 'message-text';
+                    messageText.textContent = msg.message;
+                    
+                    const timeText = document.createElement('span');
+                    timeText.className = 'chat-timestamp';
+                    timeText.textContent = formatTimestamp(msg.timestamp);
+
+                    messageDiv.appendChild(messageText);
+                    messageDiv.appendChild(timeText);
                     messagesContainer.appendChild(messageDiv);
                 });
                 messagesContainer.scrollTop = messagesContainer.scrollHeight;
             } else if (messagesContainer.innerHTML === 'Carregando mensagens...') {
-                 messagesContainer.innerHTML = ''; // Limpa se não houver mensagens
+                 messagesContainer.innerHTML = '';
             }
         } catch (error) {
             console.error("Erro ao carregar mensagens:", error);
@@ -163,7 +166,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     sender: 'admin'
                 })
             });
-            loadMessages(); // Carrega as mensagens imediatamente após o envio
+            loadMessages();
         } catch (error) {
             console.error("Erro ao enviar mensagem:", error);
         }
@@ -199,16 +202,15 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function startPolling() {
         clearInterval(pollingInterval);
-        pollingInterval = setInterval(loadMessages, 3000); // Verifica a cada 3 segundos
+        pollingInterval = setInterval(loadMessages, 3000);
     }
 
     function stopPolling() {
         clearInterval(pollingInterval);
     }
 
-    // Carrega as sessões ativas a cada 5 segundos para manter a lista atualizada
     setInterval(loadSessions, 5000);
-    loadSessions(); // Carga inicial
+    loadSessions();
 });
 </script>
 
